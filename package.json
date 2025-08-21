@@ -5,7 +5,7 @@
     "license": "ISC",
     "author": "dkswjdgh",
     "type": "module",
-    "main": "src/main.js",
+    "main": "dist/main.js",
     "scripts": {
         "start": "electron .",
         "test": "echo \"Error: no test specified\" && exit 1"
