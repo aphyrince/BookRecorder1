@@ -27,10 +27,6 @@ const dummyList: Record[] = [
 ];
 
 contextBridge.exposeInMainWorld("preloadRecord", {
-    // getRecords: () => dummyList,
-    // setRecords: (newRecord: Record[]) => {
-    //     console.log(newRecord);
-    // },
     getRecords: (): Promise<Record[]> => ipcRenderer.invoke("getRecords"),
     setRecords: (newRecord: Record[]) => {
         ipcRenderer.invoke("setRecords", newRecord);
