@@ -8,6 +8,7 @@ const AddModal = ({
 }) => {
     const [isModalActive, setModalActive] = useState(false);
     const [form, setForm] = useState<Record>({
+        id: "",
         title: "",
         author: "",
         date: "",
@@ -74,6 +75,7 @@ const AddModal = ({
                         onAddRecord(form);
                         setModalActive(false);
                         setForm({
+                            id: Date.now().toString(),
                             title: "",
                             author: "",
                             date: "",

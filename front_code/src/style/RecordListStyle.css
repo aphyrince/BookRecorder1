@@ -22,7 +22,9 @@
     font-size: 1.1rem;
     border: 1px solid rgba(0, 0, 0, 0.466);
     background-color: rgba(201, 201, 201, 0.178);
-    cursor: pointer;
+    box-sizing: border-box;
+    height: 30px;
+    /* padding: 0; */
 
     & span:first-child {
         padding-left: 10px;
@@ -69,6 +71,56 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+        }
+    }
+}
+
+.record-item.editing {
+    font-size: 1.1rem;
+    display: flex;
+    box-sizing: border-box;
+    & .inputs {
+        flex-grow: 1;
+        display: flex;
+        & > :nth-child(1) {
+            width: 40%;
+            /* margin: 0; */
+            /* padding: 0; */
+        }
+        & > :nth-child(2) {
+            width: 20%;
+        }
+        & > :nth-child(3) {
+            width: 12%;
+        }
+        & > :nth-child(4) {
+            width: 12%;
+        }
+        & > :nth-child(5) {
+            width: 5%;
+        }
+    }
+    & .edit-controls {
+        flex-wrap: nowrap;
+        /* background-color: aquamarine; */
+        display: flex;
+        & .save-btn {
+            width: 50px;
+            border: 0.5px solid rgba(0, 0, 0, 0.486);
+            font-weight: 600;
+            background-color: rgb(31, 255, 61);
+            &:hover {
+                filter: contrast(0.8);
+            }
+        }
+        & .delete-btn {
+            border: 0.5px solid rgba(0, 0, 0, 0.486);
+            background-color: rgb(255, 31, 31);
+            font-weight: 600;
+            color: whitesmoke;
+            &:hover {
+                filter: saturate(10);
+            }
         }
     }
 }

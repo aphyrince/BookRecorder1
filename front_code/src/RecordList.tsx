@@ -1,47 +1,103 @@
-import { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Record } from "./global";
 import "./style/RecordListStyle.css";
 
 const RecordItem = ({
     record,
-    onEdit,
+    isEditing,
+    onSave,
+    onStartEdit,
     onDelete,
 }: {
     record: Record;
-    onEdit: (editedRecord: Record) => void;
+    isEditing: boolean;
+    onStartEdit: () => void;
+    onSave: (editedRecord: Record) => void;
     onDelete: () => void;
 }) => {
-    const [isOption, setOption] = useState(false);
-    const { title, author, date, source, count } = record;
-    const onClick = useCallback(() => {
-        setOption((prev) => !prev);
-    }, []);
-    const onEditBtnClick = useCallback(() => {
-        const editedRecord: Record = {
-            title: title + "+",
-            author: author + "+",
-            date: date + "1",
-            source: source + "+",
-            count: count + 1,
-        };
-        onEdit(editedRecord);
-    }, []);
+    const [tempRecord, setTempRecord] = useState<Record>(record);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTempRecord({
+            ...tempRecord,
+            [e.target.name]:
+                e.target.name === "count"
+                    ? Number(e.target.value)
+                    : e.target.value,
+        });
+    };
+
+    const handleSave = () => {
+        onSave(tempRecord);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleSave();
+        } else if (e.key === "Escape") {
+            setTempRecord(record); // 원래 값 복원
+        }
+    };
 
     return (
-        <li className="record-item" onClick={onClick}>
-            <span>{title}</span>
-            <span>{author}</span>
-            <span>{date}</span>
-            <span>{source}</span>
-            <span>{count}</span>
-            <div className={`record-item-controls ${isOption ? "option" : ""}`}>
-                <button className="edit-btn" onClick={onEditBtnClick}>
-                    ···
-                </button>
-                <button className="delete-btn" onClick={onDelete}>
-                    X
-                </button>
-            </div>
+        <li
+            className={`record-item ${isEditing ? "editing" : ""}`}
+            onDoubleClick={onStartEdit}
+        >
+            {isEditing ? (
+                <>
+                    <div className="inputs">
+                        <input
+                            name="title"
+                            value={tempRecord.title}
+                            onChange={handleChange}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <input
+                            name="author"
+                            value={tempRecord.author}
+                            onChange={handleChange}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <input
+                            name="date"
+                            type="date"
+                            value={tempRecord.date}
+                            onChange={handleChange}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <input
+                            name="source"
+                            value={tempRecord.source}
+                            onChange={handleChange}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <input
+                            name="count"
+                            type="number"
+                            value={tempRecord.count}
+                            onChange={handleChange}
+                            onKeyDown={handleKeyDown}
+                        />
+                    </div>
+                    <div className="edit-controls">
+                        <button className="save-btn" onClick={handleSave}>
+                            저장
+                        </button>
+                        <button className="delete-btn" onClick={onDelete}>
+                            X
+                        </button>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <span>{record.title}</span>
+                    <span>{record.author}</span>
+                    <span>{record.date}</span>
+                    <span>{record.source}</span>
+                    <span>{record.count}</span>
+                </>
+            )}
         </li>
     );
 };
@@ -55,6 +111,8 @@ const RecordList = ({
     onEdit: (newRecordList: Record[]) => void;
     onDelete: (newRecordList: Record[]) => void;
 }) => {
+    const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
     return (
         <section id="record-list">
             <ul className="record-list-columns">
@@ -67,16 +125,22 @@ const RecordList = ({
             <ul className="list-body">
                 {recordList.map((record, idx) => (
                     <RecordItem
-                        key={idx}
+                        key={record.id}
                         record={record}
-                        onEdit={(editedRecord: Record) => {
-                            recordList[idx] = editedRecord;
+                        isEditing={editingIndex === idx}
+                        onStartEdit={() => setEditingIndex(idx)}
+                        onSave={(editedRecord: Record) => {
                             const newRecordList = [...recordList];
+                            newRecordList[idx] = editedRecord;
                             onEdit(newRecordList);
+                            setEditingIndex(null); // 저장 후 수정 모드 해제
                         }}
                         onDelete={() => {
-                            const newRecordList = [...recordList.splice(idx)];
+                            const newRecordList = recordList.filter(
+                                (_, i) => i !== idx
+                            );
                             onDelete(newRecordList);
+                            setEditingIndex(null);
                         }}
                     />
                 ))}

@@ -1,6 +1,7 @@
 // global.d.ts
 
 export interface Record {
+    id: string;
     title: string;
     author: string;
     date: string;

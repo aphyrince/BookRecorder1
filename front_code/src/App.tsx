@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import "./style/style.css";
 import AddModal from "./AddModal";
 import type { Record } from "./global";
-import ItemList from "./legacy/ItemList";
 import RecordList from "./RecordList";
 
 function App() {
@@ -11,6 +10,7 @@ function App() {
     useEffect(() => {
         setRecordList([
             {
+                id: "1",
                 title: "title",
                 author: "author1",
                 date: "00-00-00",
@@ -18,6 +18,7 @@ function App() {
                 count: 1,
             },
             {
+                id: "2",
                 title: "title2",
                 author: "author12",
                 date: "00-00-1",
@@ -25,6 +26,7 @@ function App() {
                 count: 2,
             },
             {
+                id: "3",
                 title: "title3",
                 author: "author13",
                 date: "00-00-2",
@@ -32,6 +34,7 @@ function App() {
                 count: 2,
             },
             {
+                id: "4",
                 title: "title4",
                 author: "author14",
                 date: "00-00-0330",
