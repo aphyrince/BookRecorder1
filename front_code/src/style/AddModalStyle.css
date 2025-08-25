@@ -1,0 +1,44 @@
+.add_section {
+    width: 100%;
+    & .modal {
+        display: flex;
+        width: 100%;
+        & > :nth-child(1) {
+            width: 40%;
+        }
+        & > :nth-child(2) {
+            width: 20%;
+        }
+        & > :nth-child(3) {
+            width: 12%;
+        }
+        & > :nth-child(3) {
+            width: 12%;
+        }
+        & > :nth-child(5) {
+            width: 5%;
+        }
+        & button {
+            &.canceler {
+                border: 0.5px solid rgba(0, 0, 0, 0.486);
+                background-color: rgb(255, 31, 31);
+                font-weight: 600;
+                color: whitesmoke;
+            }
+            &.adder {
+                border: none;
+                color: rgb(0, 0, 0);
+                font-weight: 600;
+                background-color: rgb(50, 211, 71);
+            }
+        }
+    }
+    & .activator {
+        border: none;
+        border-radius: 5px;
+        color: rgb(0, 0, 0);
+        font-weight: 600;
+        font-size: larger;
+        background-color: rgb(50, 211, 71);
+    }
+}
