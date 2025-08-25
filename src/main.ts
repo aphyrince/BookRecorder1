@@ -20,7 +20,7 @@ const createWindow = () => {
     });
 
     win.loadFile(
-        path.join(__dirname, "..", "front", "react2", "build", "index.html")
+        path.join(__dirname, "..", "front_code", "build", "index.html")
     );
 
     // win.webContents.openDevTools();

@@ -15,7 +15,7 @@ const createWindow = () => {
             preload: path.join(__dirname, "preload.js"),
         },
     });
-    win.loadFile(path.join(__dirname, "..", "front", "react2", "build", "index.html"));
+    win.loadFile(path.join(__dirname, "..", "front_code", "build", "index.html"));
     // win.webContents.openDevTools();
 };
 app.whenReady().then(() => {
