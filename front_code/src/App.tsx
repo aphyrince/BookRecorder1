@@ -82,8 +82,14 @@ function App() {
                 <h3>읽은 권 수 : {recordList.length}</h3>
             </header>
             <main>
+                <ul className="record-list-columns">
+                    <li>제목</li>
+                    <li>저자</li>
+                    <li>날짜</li>
+                    <li>출처</li>
+                    <li>읽은 횟수</li>
+                </ul>
                 <AddModal onAddRecord={onAddRecord} />
-                {/* <ItemList recordList={recordList} /> */}
                 <RecordList
                     recordList={recordList}
                     onDelete={onDeleteRecord}

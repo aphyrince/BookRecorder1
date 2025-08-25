@@ -115,13 +115,6 @@ const RecordList = ({
 
     return (
         <section id="record-list">
-            <ul className="record-list-columns">
-                <li>제목</li>
-                <li>저자</li>
-                <li>날짜</li>
-                <li>출처</li>
-                <li>읽은 횟수</li>
-            </ul>
             <ul className="list-body">
                 {recordList.map((record, idx) => (
                     <RecordItem
