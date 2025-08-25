@@ -8,49 +8,15 @@ function App() {
     const [recordList, setRecordList] = useState<Record[]>([]);
 
     useEffect(() => {
-        setRecordList([
-            {
-                id: "1",
-                title: "title",
-                author: "author1",
-                date: "00-00-00",
-                source: "source1",
-                count: 1,
-            },
-            {
-                id: "2",
-                title: "title2",
-                author: "author12",
-                date: "00-00-1",
-                source: "source2",
-                count: 2,
-            },
-            {
-                id: "3",
-                title: "title3",
-                author: "author13",
-                date: "00-00-2",
-                source: "source3",
-                count: 2,
-            },
-            {
-                id: "4",
-                title: "title4",
-                author: "author14",
-                date: "00-00-0330",
-                source: "source4",
-                count: 3,
-            },
-        ]);
-        // const fetchData = async () => {
-        //     const records = await window.preloadRecord.getRecords();
-        //     setRecordList(records);
-        // };
-        // fetchData();
+        const fetchData = async () => {
+            const records = await window.preloadRecord.getRecords();
+            setRecordList(records);
+        };
+        fetchData();
     }, []);
 
     const postData = (newRecordList: Record[]) => {
-        // window.preloadRecord.setRecords(newRecordList);
+        window.preloadRecord.setRecords(newRecordList);
         console.log("postData...!");
         console.log("payload : ", newRecordList);
     };
