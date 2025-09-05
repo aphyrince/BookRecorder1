@@ -1,45 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
-import "./style/style.css";
-import AddModal from "./AddModal";
-import type { Record } from "./global";
-import RecordList from "./RecordList";
+import "./AppStyle.css";
+import AddModal from "./AddModal/AddModal";
+import RecordList from "./RecordList/RecordList";
+import { useRecords } from "./api/useRecords";
 
 function App() {
-    const [recordList, setRecordList] = useState<Record[]>([]);
+    const { recordList, loading, error, addRecord, editRecord, deleteRecord } =
+        useRecords();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const records = await window.preloadRecord.getRecords();
-            setRecordList(records);
-        };
-        fetchData();
-    }, []);
-
-    const postData = (newRecordList: Record[]) => {
-        window.preloadRecord.setRecords(newRecordList);
-        console.log("postData...!");
-        console.log("payload : ", newRecordList);
-    };
-
-    const onAddRecord = useCallback((newRecord: Record) => {
-        setRecordList((prev) => {
-            const updatedList = [newRecord, ...prev];
-            postData(updatedList);
-            return updatedList;
-        });
-    }, []);
-    const onEditRecord = useCallback((newRecordList: Record[]) => {
-        setRecordList(() => {
-            postData(newRecordList);
-            return newRecordList;
-        });
-    }, []);
-    const onDeleteRecord = useCallback((newRecordList: Record[]) => {
-        setRecordList(() => {
-            postData(newRecordList);
-            return newRecordList;
-        });
-    }, []);
+    if (loading) return <p>로딩 중...</p>;
+    if (error) return <p>에러 발생!</p>;
 
     return (
         <div>
@@ -55,11 +24,11 @@ function App() {
                     <li>출처</li>
                     <li>읽은 횟수</li>
                 </ul>
-                <AddModal onAddRecord={onAddRecord} />
+                <AddModal onAddRecord={addRecord} />
                 <RecordList
                     recordList={recordList}
-                    onDelete={onDeleteRecord}
-                    onEdit={onEditRecord}
+                    onDelete={deleteRecord}
+                    onEdit={editRecord}
                 />
             </main>
         </div>

@@ -15,8 +15,10 @@ const createWindow = () => {
             preload: path.join(__dirname, "preload.js"),
         },
     });
-    win.loadFile(path.join(__dirname, "..", "front_code", "build", "index.html"));
-    // win.webContents.openDevTools();
+    win.loadFile(
+        path.join(__dirname, "..", "front_code", "build", "index.html")
+    );
+    win.webContents.openDevTools();
 };
 app.whenReady().then(() => {
     // ipcMain.handle("ping", () => "pong");
@@ -32,8 +34,7 @@ app.whenReady().then(() => {
     createWindow();
 });
 app.on("window-all-closed", () => {
-    if (process.platform !== "darwin")
-        app.quit();
+    if (process.platform !== "darwin") app.quit();
 });
 console.log("main");
 //# sourceMappingURL=main.js.map

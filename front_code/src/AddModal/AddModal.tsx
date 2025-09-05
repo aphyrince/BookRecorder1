@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
-import type { Record } from "./global";
-import "./style/AddModalStyle.css";
+import type { Record } from "../global";
+import "./AddModalStyle.css";
 
 const AddModal = ({
     onAddRecord,

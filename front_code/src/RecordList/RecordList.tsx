@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Record } from "./global";
-import "./style/RecordListStyle.css";
+import { Record } from "../global";
+import "./RecordListStyle.css";
 
 const RecordItem = ({
     record,

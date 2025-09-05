@@ -23,7 +23,7 @@ const createWindow = () => {
         path.join(__dirname, "..", "front_code", "build", "index.html")
     );
 
-    // win.webContents.openDevTools();
+    win.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
