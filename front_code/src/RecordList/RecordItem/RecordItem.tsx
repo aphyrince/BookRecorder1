@@ -67,12 +67,6 @@ export const RecordItem = ({
                             onKeyDown={handleKeyDown}
                         />
                         <input
-                            name="source"
-                            value={tempRecord.source}
-                            onChange={handleChange}
-                            onKeyDown={handleKeyDown}
-                        />
-                        <input
                             name="count"
                             type="number"
                             value={tempRecord.count}
@@ -94,7 +88,6 @@ export const RecordItem = ({
                     <span>{record.title}</span>
                     <span>{record.author}</span>
                     <span>{record.date}</span>
-                    <span>{record.source}</span>
                     <span>{record.count}</span>
                 </>
             )}

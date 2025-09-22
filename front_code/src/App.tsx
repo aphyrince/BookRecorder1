@@ -8,7 +8,7 @@ function App() {
         useRecords();
 
     if (loading) return <p>로딩 중...</p>;
-    if (error) return <p>에러 발생!</p>;
+    // if (error) return <p>에러 발생!</p>;
 
     return (
         <div>
@@ -21,7 +21,6 @@ function App() {
                     <li>제목</li>
                     <li>저자</li>
                     <li>날짜</li>
-                    <li>출처</li>
                     <li>읽은 횟수</li>
                 </ul>
                 <AddModal onAddRecord={addRecord} />

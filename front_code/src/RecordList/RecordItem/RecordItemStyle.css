@@ -2,7 +2,7 @@
     text-align: center;
     position: relative;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     font-size: 1.1rem;
     border: 1px solid rgba(0, 0, 0, 0.466);
     background-color: rgba(201, 201, 201, 0.178);
