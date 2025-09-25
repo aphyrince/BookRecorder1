@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Record } from "../../global";
 import "./RecordItemStyle.css";
+import ShowingItem from "./ShowingItem/ShowingItem";
+import EditingItem from "./EditingItem/EditingItem";
 
 export const RecordItem = ({
     record,
@@ -40,56 +42,21 @@ export const RecordItem = ({
     };
 
     return (
-        <li
-            className={`record-item ${isEditing ? "editing" : ""}`}
-            onDoubleClick={onStartEdit}
-        >
+        <li className="record-item">
             {isEditing ? (
-                <>
-                    <div className="inputs">
-                        <input
-                            name="title"
-                            value={tempRecord.title}
-                            onChange={handleChange}
-                            onKeyDown={handleKeyDown}
-                        />
-                        <input
-                            name="author"
-                            value={tempRecord.author}
-                            onChange={handleChange}
-                            onKeyDown={handleKeyDown}
-                        />
-                        <input
-                            name="date"
-                            type="date"
-                            value={tempRecord.date}
-                            onChange={handleChange}
-                            onKeyDown={handleKeyDown}
-                        />
-                        <input
-                            name="count"
-                            type="number"
-                            value={tempRecord.count}
-                            onChange={handleChange}
-                            onKeyDown={handleKeyDown}
-                        />
-                    </div>
-                    <div className="edit-controls">
-                        <button className="save-btn" onClick={handleSave}>
-                            저장
-                        </button>
-                        <button className="delete-btn" onClick={onDelete}>
-                            X
-                        </button>
-                    </div>
-                </>
+                <EditingItem
+                    tempRecord={tempRecord}
+                    handleChange={handleChange}
+                    handleKeyDown={handleKeyDown}
+                    handleSave={handleSave}
+                    onDelete={onDelete}
+                />
             ) : (
-                <>
-                    <span>{record.title}</span>
-                    <span>{record.author}</span>
-                    <span>{record.date}</span>
-                    <span>{record.count}</span>
-                </>
+                <ShowingItem
+                    record={record}
+                    onStartEdit={onStartEdit}
+                    onDelete={onDelete}
+                />
             )}
         </li>
     );

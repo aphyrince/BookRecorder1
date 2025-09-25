@@ -18,6 +18,7 @@ export function useRecords() {
             }
         };
         fetchData();
+        // setLoading(false);
     }, []);
 
     const postData = (newRecordList: Record[]) => {
