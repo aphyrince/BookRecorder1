@@ -31,6 +31,7 @@ const AddModal = ({
     };
 
     const handleSubmit = () => {
+        console.log(form);
         onAddRecord(form);
         cleanForm();
     };

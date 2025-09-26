@@ -8,7 +8,7 @@ function App() {
         useRecords();
 
     if (loading) return <p>로딩 중...</p>;
-    // if (error) return <p>에러 발생!</p>;
+    if (error) return <p>에러 발생!</p>;
 
     return (
         <div>
@@ -17,7 +17,7 @@ function App() {
                 <h3>읽은 권 수 : {recordList.length}</h3>
             </header>
             <main>
-                <ul className="record-list-columns">
+                <ul className="category">
                     <li>제목</li>
                     <li>저자</li>
                     <li>날짜</li>
