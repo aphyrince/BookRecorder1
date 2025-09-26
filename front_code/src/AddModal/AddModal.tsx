@@ -81,11 +81,11 @@ const AddModal = ({
                         />
                     </div>
                     <div className="btns">
-                        <button className="canceler" onClick={handleCancel}>
-                            취소
-                        </button>
                         <button className="adder" onClick={handleSubmit}>
                             추가
+                        </button>
+                        <button className="canceler" onClick={handleCancel}>
+                            취소
                         </button>
                     </div>
                 </div>
