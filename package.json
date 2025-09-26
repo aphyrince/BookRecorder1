@@ -1,7 +1,7 @@
 {
     "name": "reading-record",
-    "version": "1.0.0",
-    "description": "독서기록기",
+    "version": "2.0.0",
+    "description": "Read book Recording program",
     "license": "ISC",
     "author": "dkswjdgh",
     "type": "module",
