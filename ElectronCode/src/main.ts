@@ -25,12 +25,12 @@ const createWindow = () => {
     // and load the index.html of the app.
     if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
         mainWindow.loadFile(
-            path.join(__dirname, "../../../front/build/index.html")
+            path.join(__dirname, "../../../front/build/index.html"),
         );
         mainWindow.webContents.openDevTools();
     } else {
         mainWindow.loadFile(
-            path.join(process.resourcesPath, "build/index.html")
+            path.join(process.resourcesPath, "build/index.html"),
         );
     }
 };
@@ -41,7 +41,7 @@ app.whenReady().then(() => {
         fs.writeFileSync(
             dataFilePath,
             "title,author,date,source,count\n",
-            "utf-8"
+            "utf-8",
         );
     }
     ipcMain.handle("getRecords", () => {
