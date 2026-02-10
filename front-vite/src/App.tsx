@@ -1,13 +1,20 @@
-import BookList from "./components/BookList";
+import RecordList from "./components/RecordList";
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
+import { dummyRecords } from "./tmpDatas/recordList";
+import { useState } from "react";
+import Sidebar from "./components/sidebars/Sidebar";
 
 const App = () => {
+    const [recordCount] = useState(dummyRecords.length);
+    const [recordList] = useState(dummyRecords);
+
     return (
-        <div className="w-280 h-200 p-0 m-0 bg-lime-100">
-            <Hero />
+        <div className="relative flex flex-col w-280 h-200 p-0 m-0 bg-lime-100">
+            <Hero recordCount={recordCount} />
+            <Sidebar />
             <Nav />
-            <BookList />
+            <RecordList list={recordList} />
         </div>
     );
 };
