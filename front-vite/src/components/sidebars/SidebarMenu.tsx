@@ -1,4 +1,4 @@
-import type { SIDEBAR_MENU_ITEMS_TYPE } from "./SidebarMenuItems";
+import type { SIDEBAR_MENU_ITEMS_TYPE } from "./sidebarMenuItems";
 
 const SidebarMenu = ({ Icon, name }: SIDEBAR_MENU_ITEMS_TYPE) => {
     return (

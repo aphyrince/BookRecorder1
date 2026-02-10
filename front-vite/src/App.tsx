@@ -1,6 +1,5 @@
-import RecordList from "./components/RecordList";
-import Hero from "./components/Hero";
-import Nav from "./components/Nav";
+import RecordList from "./components/Home/RecordList";
+import Hero from "./components/Home/Hero";
 import { dummyRecords } from "./tmpDatas/recordList";
 import { useState } from "react";
 import Sidebar from "./components/sidebars/Sidebar";
@@ -10,11 +9,12 @@ const App = () => {
     const [recordList] = useState(dummyRecords);
 
     return (
-        <div className="relative flex flex-col w-280 h-200 p-0 m-0 bg-lime-100">
-            <Hero recordCount={recordCount} />
+        <div className="flex w-280 h-200 p-0 m-0 bg-black/85">
             <Sidebar />
-            <Nav />
-            <RecordList list={recordList} />
+            <div className="flex flex-col flex-1 h-full ml-auto ">
+                <Hero recordCount={recordCount} />
+                <RecordList list={recordList} />
+            </div>
         </div>
     );
 };
