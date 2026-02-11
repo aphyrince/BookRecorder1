@@ -26,9 +26,8 @@ const AddPage = () => {
                 </div>
                 <div className="flex flex-col px-4 py-10 gap-20">
                     <input
-                        className="flex justify-center items-center mx-auto px-8 py-4 bg-lime-500 text-black text-xl rounded-xl "
+                        className="flex justify-center items-center mx-auto px-8 py-4 bg-linear-180 from-transparent from-30% to-lime-200/50  text-white/80 text-2xl border-b-4 border-lime-400"
                         type="date"
-                        defaultValue={new Date().toString()}
                     />
                     <div className="flex justify-center items-center gap-10 mx-auto bg-lime-600 rounded-xl overflow-hidden">
                         <ChevronDown
@@ -62,7 +61,10 @@ const AddPage = () => {
                 </div>
             </div>
             <div className="flex justify-end items-center w-full h-25 px-20 border-t-2 border-lime-600">
-                <button className="grid place-items-center w-30 p-2 bg-transparent hover:bg-lime-400/80 rounded-xl hover:rounded-md text-2xl hover:text-3xl text-white/70 hover:text-black duration-200 cursor-pointer">
+                <button className="grid place-items-center w-30 p-2 bg-transparent hover:bg-orange-600 rounded-xl hover:rounded-md text-2xl hover:text-3xl text-white/80 hover:text-black duration-200 cursor-pointer">
+                    cancel
+                </button>
+                <button className="grid place-items-center w-30 p-2 bg-transparent hover:bg-lime-400/80 rounded-xl hover:rounded-md text-2xl hover:text-3xl text-lime-400 hover:text-black duration-200 cursor-pointer">
                     submit
                 </button>
             </div>
