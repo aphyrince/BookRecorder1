@@ -5,3 +5,13 @@
 * {
     font-family: pretendard;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 0, 0.849);
+}

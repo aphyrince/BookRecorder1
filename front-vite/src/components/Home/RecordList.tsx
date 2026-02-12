@@ -1,4 +1,4 @@
-import type { RECORD_TYPE } from "../../types/recordType";
+import type { RECORD_TYPE } from "../../zustand/useRecordStore";
 
 const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
     return (
@@ -11,7 +11,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
             </li>
             {list.map((item) => (
                 <li className="grid grid-cols-4 w-full py-2 mb-2 border-b-2 border-lime-400">
-                    <p>{item.title}</p>
+                    <p className="text-ellipsis">{item.title}</p>
                     <p>{item.author}</p>
                     <p>{item.count}</p>
                     <ul className="flex flex-col gap-2">

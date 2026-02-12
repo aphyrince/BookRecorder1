@@ -1,15 +1,14 @@
-import { useState } from "react";
-import { dummyRecords } from "../../tmpDatas/dummyRecordList";
 import Hero from "./Hero";
 import RecordList from "./RecordList";
+import { useRecordStore } from "../../zustand/useRecordStore";
 
 const HomePage = () => {
-    const [recordCount] = useState(dummyRecords.length);
-    const [recordList] = useState(dummyRecords);
+    const { records } = useRecordStore();
+
     return (
-        <div className="flex flex-col h-200 w-full">
-            <Hero recordCount={recordCount} />
-            <RecordList list={recordList} />
+        <div className="flex flex-col h-200 w-full overflow-y-scroll ">
+            <Hero recordCount={records.length} />
+            <RecordList list={records} />
         </div>
     );
 };

@@ -26,7 +26,7 @@ const AddPage = () => {
                 </div>
                 <div className="flex flex-col px-4 py-10 gap-20">
                     <input
-                        className="flex justify-center items-center mx-auto px-8 py-4 bg-linear-180 from-transparent from-30% to-lime-200/50  text-white/80 text-2xl border-b-4 border-lime-400"
+                        className="flex justify-center items-center mx-auto px-4 py-4 bg-linear-180 from-transparent from-30% to-lime-200/50  text-white/80 text-2xl border-b-4 border-lime-400"
                         type="date"
                     />
                     <div className="flex justify-center items-center gap-10 mx-auto bg-lime-600 rounded-xl overflow-hidden">
@@ -53,7 +53,7 @@ const AddPage = () => {
                         />
                     </div>
                     <div
-                        className="size-80 mx-auto ring-2 ring-lime-400 rounded-4xl"
+                        className="grid place-items-center size-80 mx-auto ring-2 ring-lime-400 rounded-full"
                         title="Rating"
                     >
                         rating
