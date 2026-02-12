@@ -1,12 +1,15 @@
 import { create } from "zustand";
-import { dummyRecords } from "../tmpDatas/recordList";
+import { dummyRecords } from "../tmpDatas/dummyRecordList";
 
-export interface RECORD_TYPE {
-    id: string;
+export interface RECORD_NO_ID_TYPE {
     title: string;
     author: string;
     count: number;
     dates: string[];
+}
+
+export interface RECORD_TYPE extends RECORD_NO_ID_TYPE {
+    id: string;
 }
 
 export const RECORD_KEYS = ["title", "author", "count", "dates"];
@@ -21,20 +24,33 @@ interface RECORD_STORE {
 export const useRecordStore = create<RECORD_STORE>((set) => ({
     records: dummyRecords,
     addRecord: (record: RECORD_TYPE) => {
-        set((state) => ({ records: [...state.records, record] }));
+        set((state) => addSetter(state, record));
     },
     modifyRecord: (record: RECORD_TYPE) => {
-        set((state) => ({
-            records: [
-                ...state.records.map((elem) =>
-                    elem.id === record.id ? record : elem,
-                ),
-            ],
-        }));
+        set((state) => modifySetter(state, record));
     },
     removeRecord: (record: RECORD_TYPE) => {
-        set((state) => ({
-            records: [...state.records.filter((elem) => elem.id !== record.id)],
-        }));
+        set((state) => removeSetter(state, record));
     },
 }));
+
+function addSetter(state: RECORD_STORE, record: RECORD_NO_ID_TYPE) {
+    const id = new Date().toString();
+    return { records: [...state.records, { id, ...record }] };
+}
+
+function modifySetter(state: RECORD_STORE, record: RECORD_TYPE) {
+    return {
+        records: [
+            ...state.records.map((elem) =>
+                elem.id === record.id ? record : elem,
+            ),
+        ],
+    };
+}
+
+function removeSetter(state: RECORD_STORE, record: RECORD_TYPE) {
+    return {
+        records: [...state.records.filter((elem) => elem.id !== record.id)],
+    };
+}

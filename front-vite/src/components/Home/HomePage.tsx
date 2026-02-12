@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { dummyRecords } from "../../tmpDatas/recordList";
+import { dummyRecords } from "../../tmpDatas/dummyRecordList";
 import Hero from "./Hero";
 import RecordList from "./RecordList";
 
