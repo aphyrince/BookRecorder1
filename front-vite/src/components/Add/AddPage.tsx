@@ -1,8 +1,13 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
+import Counter from "./Counter";
 
 const AddPage = () => {
-    const [count, setCount] = useState(0);
+    const [title, setTitle] = useState("");
+    const [author, setAuthor] = useState("");
+    const [comment, setComment] = useState("");
+    const [rating, setRating] = useState(0);
+    const [count, setCount] = useState(1);
+    const [dates, setDates] = useState<Date[]>([]);
 
     return (
         <div className="w-full h-200">
@@ -24,34 +29,8 @@ const AddPage = () => {
                         rows={8}
                     />
                 </div>
-                <div className="flex flex-col px-4 py-10 gap-20">
-                    <input
-                        className="flex justify-center items-center mx-auto px-4 py-4 bg-linear-180 from-transparent from-30% to-lime-200/50  text-white/80 text-2xl border-b-4 border-lime-400"
-                        type="date"
-                    />
-                    <div className="flex justify-center items-center gap-10 mx-auto bg-lime-600 rounded-xl overflow-hidden">
-                        <ChevronDown
-                            size={48}
-                            strokeWidth={3}
-                            onClick={() => {
-                                setCount((prev) =>
-                                    prev - 1 < 0 ? 0 : prev - 1,
-                                );
-                            }}
-                            className="text-white/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-lime-300/50 duration-200"
-                        />
-                        <p className="flex justify-center items-center w-5 text-3xl select-none">
-                            {count}
-                        </p>
-                        <ChevronUp
-                            size={48}
-                            strokeWidth={3}
-                            className="text-white/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-lime-300/50 duration-200"
-                            onClick={() => {
-                                setCount((prev) => prev + 1);
-                            }}
-                        />
-                    </div>
+                <div className="flex flex-col justify-between gap-10 px-4 py-10">
+                    <Counter />
                     <div
                         className="grid place-items-center size-80 mx-auto ring-2 ring-lime-400 rounded-full"
                         title="Rating"
