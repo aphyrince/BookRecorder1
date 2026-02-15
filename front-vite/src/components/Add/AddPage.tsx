@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useRecordStore } from "../../zustand/useRecordStore";
 
-const AddPage = () => {
+const AddPage = ({ pageShift }: { pageShift: () => void }) => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [comment, setComment] = useState("");
@@ -20,7 +20,8 @@ const AddPage = () => {
     const handleAddBtn = useCallback(() => {
         addRecord({ title, author, count: 1, dates: [date.toString()] });
         resetInputs();
-    }, [title, author, date, addRecord, resetInputs]);
+        pageShift();
+    }, [title, author, date, addRecord, resetInputs, pageShift]);
 
     return (
         <div className="w-full h-200">
