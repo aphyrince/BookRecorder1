@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useRecordStore } from "../../zustand/useRecordStore";
 
 const AddPage = () => {
     const [title, setTitle] = useState("");
@@ -6,6 +7,11 @@ const AddPage = () => {
     const [comment, setComment] = useState("");
     const [rating, setRating] = useState(1);
     const [date, setDate] = useState<Date>(new Date());
+    const { addRecord } = useRecordStore();
+
+    const handleAddBtn = useCallback(() => {
+        addRecord({ title, author, count: 1, dates: [date.toString()] });
+    }, [title, author, date, addRecord]);
 
     return (
         <div className="w-full h-200">
@@ -67,7 +73,10 @@ const AddPage = () => {
                 <button className="grid place-items-center w-30 p-2 bg-transparent hover:bg-orange-600 rounded-xl hover:rounded-md text-2xl hover:text-3xl text-white/80 hover:text-black duration-200 cursor-pointer">
                     cancel
                 </button>
-                <button className="grid place-items-center w-30 p-2 bg-transparent hover:bg-lime-400/80 rounded-xl hover:rounded-md text-2xl hover:text-3xl text-lime-400 hover:text-black duration-200 cursor-pointer">
+                <button
+                    className="grid place-items-center w-30 p-2 bg-transparent hover:bg-lime-400/80 rounded-xl hover:rounded-md text-2xl hover:text-3xl text-lime-400 hover:text-black duration-200 cursor-pointer"
+                    onClick={handleAddBtn}
+                >
                     submit
                 </button>
             </div>
