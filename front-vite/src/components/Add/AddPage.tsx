@@ -1,13 +1,11 @@
 import { useState } from "react";
-import Counter from "./Counter";
 
 const AddPage = () => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [comment, setComment] = useState("");
-    const [rating, setRating] = useState(0);
-    const [count, setCount] = useState(1);
-    const [dates, setDates] = useState<Date[]>([]);
+    const [rating, setRating] = useState(1);
+    const [date, setDate] = useState<Date>(new Date());
 
     return (
         <div className="w-full h-200">
@@ -24,18 +22,38 @@ const AddPage = () => {
                         placeholder="author"
                     />
                     <textarea
-                        className="w-full p-4 text-3xl rounded-xl ring-2 ring-lime-400"
+                        className="w-full p-4 text-3xl rounded-xl ring-2 ring-lime-400 resize-none"
                         placeholder="comment"
                         rows={8}
                     />
                 </div>
-                <div className="flex flex-col justify-between gap-10 px-4 py-10">
-                    <Counter />
+                <div className="flex flex-col justify-start gap-40 px-4 py-10">
+                    <div className="flex justify-center mx-auto mt-20 px-12 py-4 rounded-md bg-lime-400 text-black">
+                        <input
+                            className="text-3xl"
+                            type="date"
+                            value={`${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`}
+                            onChange={(e) => {
+                                setDate(new Date(e.target.value));
+                            }}
+                        />
+                    </div>
                     <div
-                        className="grid place-items-center size-80 mx-auto ring-2 ring-lime-400 rounded-full"
+                        className="flex flex-col justify-center items-center gap-4 mx-auto w-75 p-4 bg-lime-500 text-black text-2xl rounded-md"
                         title="Rating"
                     >
-                        rating
+                        <p>{rating}</p>
+                        <input
+                            className="w-50 accent-amber-400"
+                            type="range"
+                            min={1}
+                            max={5}
+                            step={0.1}
+                            value={rating}
+                            onChange={(e) => {
+                                setRating(Number(e.target.value));
+                            }}
+                        />
                     </div>
                 </div>
             </div>
