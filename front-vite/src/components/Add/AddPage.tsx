@@ -9,9 +9,18 @@ const AddPage = () => {
     const [date, setDate] = useState<Date>(new Date());
     const { addRecord } = useRecordStore();
 
+    const resetInputs = useCallback(() => {
+        setTitle("");
+        setAuthor("");
+        setComment("");
+        setRating(1);
+        setDate(new Date());
+    }, []);
+
     const handleAddBtn = useCallback(() => {
         addRecord({ title, author, count: 1, dates: [date.toString()] });
-    }, [title, author, date, addRecord]);
+        resetInputs();
+    }, [title, author, date, addRecord, resetInputs]);
 
     return (
         <div className="w-full h-200">
