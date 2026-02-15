@@ -15,16 +15,22 @@ const AddPage = () => {
                         className="w-full p-4 text-3xl rounded-xl ring-2 ring-lime-400"
                         type="text"
                         placeholder="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                     <input
                         className="w-full p-4 text-3xl rounded-xl ring-2 ring-lime-400"
                         type="text"
                         placeholder="author"
+                        value={author}
+                        onChange={(e) => setAuthor(e.target.value)}
                     />
                     <textarea
                         className="w-full p-4 text-3xl rounded-xl ring-2 ring-lime-400 resize-none"
                         placeholder="comment"
                         rows={8}
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
                     />
                 </div>
                 <div className="flex flex-col justify-start gap-40 px-4 py-10">
