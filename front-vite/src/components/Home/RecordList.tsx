@@ -1,8 +1,34 @@
 import { useState } from "react";
-import type { RECORD_TYPE } from "../../zustand/useRecordStore";
+import { useRecordStore, type RECORD_TYPE } from "../../zustand/useRecordStore";
+import Swal from "sweetalert2";
 
 const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
+    const { removeRecord } = useRecordStore();
+
     const [optionNum, setOptionNum] = useState(-1);
+    const showAlert = (item: RECORD_TYPE) => {
+        Swal.fire({
+            title: "정말 삭제하시겠습니까?",
+            text: "삭제 후에는 복구할 수 없습니다!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "삭제",
+            cancelButtonText: "취소",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                removeRecord(item);
+                setOptionNum(-1);
+                // 확인 클릭 시 실행
+                Swal.fire(
+                    "삭제됨!",
+                    "파일이 정상적으로 삭제되었습니다.",
+                    "success",
+                );
+            }
+        });
+    };
 
     return (
         <ul className="flex flex-col flex-1 w-full p-4 text-white">
@@ -62,7 +88,10 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                                 <button className="mb-auto py-2 px-4 text-lg hover:text-xl text-lime-400 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer">
                                     modify
                                 </button>
-                                <button className="mb-auto py-2 px-4 text-lg hover:text-xl text-red-400 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer">
+                                <button
+                                    className="mb-auto py-2 px-4 text-lg hover:text-xl text-red-400 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer"
+                                    onClick={() => showAlert(item)}
+                                >
                                     delete
                                 </button>
                             </div>
