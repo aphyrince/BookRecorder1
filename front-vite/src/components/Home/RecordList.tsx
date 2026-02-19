@@ -61,9 +61,6 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                     </ul>
                     <div
                         className="col-span-4 grid w-full overflow-hidden duration-200"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                        }}
                         style={{
                             gridTemplateRows:
                                 optionNum === index ? "1fr" : "0fr",
@@ -84,7 +81,12 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                                     ipsum....
                                 </p>
                             </div>
-                            <div className="flex justify-evenly gap-4 p-2">
+                            <div
+                                className="flex justify-evenly gap-4 p-2"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                }}
+                            >
                                 <button className="mb-auto py-2 px-4 text-lg hover:text-xl text-lime-400 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer">
                                     modify
                                 </button>
