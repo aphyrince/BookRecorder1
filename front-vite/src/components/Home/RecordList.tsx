@@ -1,6 +1,9 @@
+import { useState } from "react";
 import type { RECORD_TYPE } from "../../zustand/useRecordStore";
 
 const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
+    const [optionNum, setOptionNum] = useState(-1);
+
     return (
         <ul className="flex flex-col flex-1 w-full p-4 text-white">
             <li className="grid grid-cols-4 w-full py-4 mb-4 text-2xl text-lime-500 border-b-4">
@@ -9,8 +12,13 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                 <p>Count</p>
                 <p>Dates</p>
             </li>
-            {list.map((item) => (
-                <li className="grid grid-cols-4 w-full py-2 mb-2 border-b-2 border-lime-400">
+            {list.map((item, index) => (
+                <li
+                    className="grid grid-cols-4 w-full py-2 mb-2 border-b-2 border-lime-400 duration-200"
+                    onClick={() => {
+                        setOptionNum(index);
+                    }}
+                >
                     <p className="text-ellipsis">{item.title}</p>
                     <p>{item.author}</p>
                     <p>{item.count}</p>
@@ -21,6 +29,45 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                             </li>
                         ))}
                     </ul>
+                    {
+                        <div
+                            className="col-span-4 grid w-full overflow-hidden duration-200"
+                            style={{
+                                gridTemplateRows:
+                                    optionNum === index ? "1fr" : "0fr",
+                            }}
+                        >
+                            <div className="grid grid-cols-4 overflow-hidden">
+                                <div className="col-span-3 text-white/60">
+                                    <p className="text-lime-400/80">
+                                        comment :{" "}
+                                    </p>
+                                    <p>
+                                        lorem ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....
+                                    </p>
+                                </div>
+                                <div className="flex justify-evenly gap-4 p-2">
+                                    <button className="mb-auto py-2 px-4 text-lg hover:text-xl text-lime-400 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer">
+                                        modify
+                                    </button>
+                                    <button className="mb-auto py-2 px-4 text-lg hover:text-xl text-red-400 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer">
+                                        delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </li>
             ))}
         </ul>
