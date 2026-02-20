@@ -5,6 +5,7 @@ export interface RECORD_NO_ID_TYPE {
     title: string;
     author: string;
     count: number;
+    comment: string;
     dates: Date[];
 }
 

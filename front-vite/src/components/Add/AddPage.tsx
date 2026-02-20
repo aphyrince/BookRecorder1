@@ -18,10 +18,10 @@ const AddPage = ({ pageShift }: { pageShift: () => void }) => {
     }, []);
 
     const handleAddBtn = useCallback(() => {
-        addRecord({ title, author, count: 1, dates: [date] });
+        addRecord({ title, author, count: 1, dates: [date], comment });
         resetInputs();
         pageShift();
-    }, [title, author, date, addRecord, resetInputs, pageShift]);
+    }, [title, author, date, addRecord, resetInputs, pageShift, comment]);
 
     return (
         <div className="w-full h-200">

@@ -13,6 +13,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
         author: "",
         count: 1,
         dates: [],
+        comment: "",
     });
 
     const handleTempChange = useCallback(
@@ -167,20 +168,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                                 {isEdit && optionNum === index ? (
                                     <textarea className="w-full mt-2 resize-none" />
                                 ) : (
-                                    <p>
-                                        lorem ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....lorem
-                                        ipsum....lorem ipsum....
-                                    </p>
+                                    <p>{item.comment}</p>
                                 )}
                             </div>
                             <div
