@@ -5,7 +5,7 @@ export interface RECORD_NO_ID_TYPE {
     title: string;
     author: string;
     count: number;
-    dates: string[];
+    dates: Date[];
 }
 
 export interface RECORD_TYPE extends RECORD_NO_ID_TYPE {

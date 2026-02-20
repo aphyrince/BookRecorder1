@@ -18,7 +18,7 @@ const AddPage = ({ pageShift }: { pageShift: () => void }) => {
     }, []);
 
     const handleAddBtn = useCallback(() => {
-        addRecord({ title, author, count: 1, dates: [date.toString()] });
+        addRecord({ title, author, count: 1, dates: [date] });
         resetInputs();
         pageShift();
     }, [title, author, date, addRecord, resetInputs, pageShift]);

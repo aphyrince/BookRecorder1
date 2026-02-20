@@ -113,7 +113,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                             {tempItem.dates.map((date) => (
                                 <input
                                     type="date"
-                                    value={date}
+                                    value={`${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`}
                                     onChange={handleTempChange}
                                 />
                             ))}
@@ -122,7 +122,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                         <ul className="flex flex-col gap-2">
                             {item.dates.map((date) => (
                                 <li className="not-last:border-b not-last:pb-2 border-lime-200">
-                                    {date}
+                                    {`${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`}
                                 </li>
                             ))}
                         </ul>
