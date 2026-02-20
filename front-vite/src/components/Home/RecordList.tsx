@@ -65,6 +65,10 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
         setIsEdit(false);
     }, [tempItem, editRecord]);
 
+    const handleEditCancel = useCallback(() => {
+        setIsEdit(false);
+    }, []);
+
     const showAlert = (item: RECORD_TYPE) => {
         Swal.fire({
             title: "정말 삭제하시겠습니까?",
@@ -82,7 +86,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                 // 확인 클릭 시 실행
                 Swal.fire(
                     "삭제됨!",
-                    "파일이 정상적으로 삭제되었습니다.",
+                    "Record가 정상적으로 삭제되었습니다.",
                     "success",
                 );
             }
@@ -217,7 +221,10 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                                 )}
 
                                 {isEdit && optionNum === index ? (
-                                    <button className="py-2 px-4 text-lg hover:text-xl text-red-600 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer">
+                                    <button
+                                        className="py-2 px-4 text-lg hover:text-xl text-shadow-lg text-shadow-white/10 text-red-600 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer"
+                                        onClick={handleEditCancel}
+                                    >
                                         cancel
                                     </button>
                                 ) : (
