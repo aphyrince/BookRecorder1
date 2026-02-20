@@ -1,11 +1,49 @@
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRecordStore, type RECORD_TYPE } from "../../zustand/useRecordStore";
 import Swal from "sweetalert2";
 
 const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
     const { removeRecord } = useRecordStore();
-
     const [optionNum, setOptionNum] = useState(-1);
+    const [isEdit, setIsEdit] = useState(false);
+    const [tempItem, setTempItem] = useState<RECORD_TYPE>({
+        id: "-1",
+        title: "",
+        author: "",
+        count: 1,
+        dates: [],
+    });
+
+    const handleTempChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setTempItem((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+            }));
+        },
+        [],
+    );
+
+    const handleEditClick = useCallback((item: RECORD_TYPE) => {
+        setTempItem({ ...item });
+        setIsEdit(true);
+    }, []);
+
+    const handleElemClick = useCallback(
+        (index: number) => {
+            if (optionNum === index && isEdit) {
+                return;
+            } else if (optionNum === index) {
+                setOptionNum(-1);
+                setIsEdit(false);
+            } else {
+                setOptionNum(index);
+                setIsEdit(false);
+            }
+        },
+        [optionNum, isEdit],
+    );
+
     const showAlert = (item: RECORD_TYPE) => {
         Swal.fire({
             title: "정말 삭제하시겠습니까?",
@@ -40,25 +78,56 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
             </li>
             {list.map((item, index) => (
                 <li
-                    className="grid grid-cols-4 w-full py-2 mb-2 border-b-2 border-lime-400 duration-200"
-                    onClick={() => {
-                        if (optionNum == index) {
-                            setOptionNum(-1);
-                            return;
-                        }
-                        setOptionNum(index);
+                    className="grid grid-cols-4 w-full pt-4 py-2 border-b-2 border-lime-400 duration-200"
+                    style={{
+                        background:
+                            isEdit && optionNum === index
+                                ? "rgb(245 158 11 / 0.8)"
+                                : "transparent",
                     }}
+                    onClick={() => handleElemClick(index)}
                 >
-                    <p className="text-ellipsis">{item.title}</p>
-                    <p>{item.author}</p>
+                    {isEdit && optionNum === index ? (
+                        <input
+                            type="text"
+                            name="title"
+                            value={tempItem.title}
+                            onChange={handleTempChange}
+                        />
+                    ) : (
+                        <p className="text-ellipsis">{item.title}</p>
+                    )}
+                    {isEdit && optionNum === index ? (
+                        <input
+                            type="text"
+                            name="author"
+                            value={tempItem.author}
+                            onChange={handleTempChange}
+                        />
+                    ) : (
+                        <p className="text-ellipsis">{item.author}</p>
+                    )}
                     <p>{item.count}</p>
-                    <ul className="flex flex-col gap-2">
-                        {item.dates.map((date) => (
-                            <li className="not-last:border-b not-last:pb-2 border-lime-200">
-                                {date}
-                            </li>
-                        ))}
-                    </ul>
+                    {isEdit && optionNum === index ? (
+                        <ul>
+                            {tempItem.dates.map((date) => (
+                                <input
+                                    type="date"
+                                    value={date}
+                                    onChange={handleTempChange}
+                                />
+                            ))}
+                        </ul>
+                    ) : (
+                        <ul className="flex flex-col gap-2">
+                            {item.dates.map((date) => (
+                                <li className="not-last:border-b not-last:pb-2 border-lime-200">
+                                    {date}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
                     <div
                         className="col-span-4 grid w-full overflow-hidden duration-200"
                         style={{
@@ -87,8 +156,13 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                                     e.stopPropagation();
                                 }}
                             >
-                                <button className="mb-auto py-2 px-4 text-lg hover:text-xl text-lime-400 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer">
-                                    modify
+                                <button
+                                    className="mb-auto py-2 px-4 text-lg hover:text-xl text-lime-400 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer"
+                                    onClick={() => {
+                                        handleEditClick(item);
+                                    }}
+                                >
+                                    edit
                                 </button>
                                 <button
                                     className="mb-auto py-2 px-4 text-lg hover:text-xl text-red-400 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer"
