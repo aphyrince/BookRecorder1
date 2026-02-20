@@ -70,7 +70,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
 
     return (
         <ul className="flex flex-col flex-1 w-full p-4 text-white">
-            <li className="grid grid-cols-4 w-full py-4 mb-4 text-2xl text-lime-500 border-b-4">
+            <li className="grid grid-cols-4 w-full py-4 text-2xl text-lime-500 border-b-4">
                 <p>Title</p>
                 <p>Author</p>
                 <p>Count</p>
@@ -78,7 +78,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
             </li>
             {list.map((item, index) => (
                 <li
-                    className="grid grid-cols-4 w-full pt-4 py-2 border-b-2 border-lime-400 duration-200"
+                    className="grid grid-cols-4 w-full py-4 border-b-2 border-lime-400 duration-200"
                     style={{
                         background:
                             isEdit && optionNum === index
