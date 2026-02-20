@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useRecordStore, type RECORD_TYPE } from "../../zustand/useRecordStore";
 import Swal from "sweetalert2";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
     const { removeRecord, editRecord } = useRecordStore();
@@ -56,9 +56,15 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
         [optionNum, isEdit],
     );
 
-    const handleCount = useCallback((addNum: number) => {
-        setTempItem((prev) => ({ ...prev, count: prev.count + addNum }));
-    }, []);
+    const handleCount = useCallback(
+        (addNum: number, item: RECORD_TYPE) => {
+            if (tempItem.count + addNum < item.count) {
+                return;
+            }
+            setTempItem((prev) => ({ ...prev, count: prev.count + addNum }));
+        },
+        [tempItem],
+    );
 
     const handleEditSubmit = useCallback(() => {
         editRecord(tempItem);
@@ -136,20 +142,20 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                     )}
                     {isEdit && optionNum === index ? (
                         <div className="flex justify-start items-center gap-4 mr-auto rounded-xl">
-                            <ChevronDown
+                            <Minus
                                 size={30}
                                 strokeWidth={3}
-                                onClick={() => handleCount(-1)}
-                                className=" text-black/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl cursor-pointer"
+                                onClick={() => handleCount(-1, item)}
+                                className=" text-black/60 hover:text-red-600/70 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl cursor-pointer"
                             />
                             <p className="flex justify-center w-4 items-center select-none">
                                 {tempItem.count}
                             </p>
-                            <ChevronUp
+                            <Plus
                                 size={30}
                                 strokeWidth={3}
-                                className=" text-black/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl cursor-pointer"
-                                onClick={() => handleCount(1)}
+                                className=" text-black/60 hover:text-lime-500/70 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl cursor-pointer"
+                                onClick={() => handleCount(1, item)}
                             />
                         </div>
                     ) : (
