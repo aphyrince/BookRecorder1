@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useRecordStore, type RECORD_TYPE } from "../../zustand/useRecordStore";
 import Swal from "sweetalert2";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
     const { removeRecord } = useRecordStore();
@@ -44,6 +45,10 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
         [optionNum, isEdit],
     );
 
+    const handleCount = useCallback((addNum: number) => {
+        setTempItem((prev) => ({ ...prev, count: prev.count + addNum }));
+    }, []);
+
     const showAlert = (item: RECORD_TYPE) => {
         Swal.fire({
             title: "정말 삭제하시겠습니까?",
@@ -78,7 +83,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
             </li>
             {list.map((item, index) => (
                 <li
-                    className="grid grid-cols-4 w-full py-4 border-b-2 border-lime-400 duration-200"
+                    className="grid grid-cols-4 w-full py-4 pl-2 border-b-2 border-lime-400 duration-200"
                     style={{
                         background:
                             isEdit && optionNum === index
@@ -107,7 +112,28 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                     ) : (
                         <p className="text-ellipsis">{item.author}</p>
                     )}
-                    <p>{item.count}</p>
+                    {isEdit && optionNum === index ? (
+                        <div className="flex justify-start items-center gap-4 mr-auto rounded-xl">
+                            <ChevronDown
+                                size={30}
+                                strokeWidth={3}
+                                onClick={() => handleCount(-1)}
+                                className=" text-black/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl"
+                            />
+                            <p className="flex justify-center w-4 items-center select-none">
+                                {tempItem.count}
+                            </p>
+                            <ChevronUp
+                                size={30}
+                                strokeWidth={3}
+                                className=" text-black/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl"
+                                onClick={() => handleCount(1)}
+                            />
+                        </div>
+                    ) : (
+                        <p>{item.count}</p>
+                    )}
+
                     {isEdit && optionNum === index ? (
                         <ul>
                             {tempItem.dates.map((date) => (
@@ -138,17 +164,24 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                         <div className="grid grid-cols-4 overflow-hidden">
                             <div className="col-span-3 text-white/60">
                                 <p className="text-lime-400/80">comment : </p>
-                                <p>
-                                    lorem ipsum....lorem ipsum....lorem
-                                    ipsum....lorem ipsum....lorem ipsum....lorem
-                                    ipsum....lorem ipsum....lorem ipsum....lorem
-                                    ipsum....lorem ipsum....lorem ipsum....lorem
-                                    ipsum....lorem ipsum....lorem ipsum....lorem
-                                    ipsum....lorem ipsum....lorem ipsum....lorem
-                                    ipsum....lorem ipsum....lorem ipsum....lorem
-                                    ipsum....lorem ipsum....lorem ipsum....lorem
-                                    ipsum....
-                                </p>
+                                {isEdit && optionNum === index ? (
+                                    <textarea className="w-full mt-2 resize-none" />
+                                ) : (
+                                    <p>
+                                        lorem ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....lorem
+                                        ipsum....lorem ipsum....
+                                    </p>
+                                )}
                             </div>
                             <div
                                 className="flex justify-evenly gap-4 p-2"
