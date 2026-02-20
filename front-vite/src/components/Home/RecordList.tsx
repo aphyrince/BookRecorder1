@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
-    const { removeRecord } = useRecordStore();
+    const { removeRecord, editRecord } = useRecordStore();
     const [optionNum, setOptionNum] = useState(-1);
     const [isEdit, setIsEdit] = useState(false);
     const [tempItem, setTempItem] = useState<RECORD_TYPE>({
@@ -60,6 +60,11 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
         setTempItem((prev) => ({ ...prev, count: prev.count + addNum }));
     }, []);
 
+    const handleEditSubmit = useCallback(() => {
+        editRecord(tempItem);
+        setIsEdit(false);
+    }, [tempItem, editRecord]);
+
     const showAlert = (item: RECORD_TYPE) => {
         Swal.fire({
             title: "정말 삭제하시겠습니까?",
@@ -98,7 +103,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                     style={{
                         background:
                             isEdit && optionNum === index
-                                ? "rgb(245 158 11 / 0.8)"
+                                ? "rgb(245 158 11 / 0.7)"
                                 : "transparent",
                     }}
                     onClick={() => handleElemClick(index)}
@@ -175,7 +180,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                         }}
                     >
                         <div className="grid grid-cols-4 overflow-hidden">
-                            <div className="col-span-3 text-white/60">
+                            <div className="col-span-3 pt-2 text-white/60">
                                 <p className="text-lime-400/80">comment : </p>
                                 {isEdit && optionNum === index ? (
                                     <textarea
@@ -188,25 +193,41 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                                 )}
                             </div>
                             <div
-                                className="flex justify-evenly gap-4 p-2"
+                                className="flex justify-evenly items-end pt-4 gap-4"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                 }}
                             >
-                                <button
-                                    className="mb-auto py-2 px-4 text-lg hover:text-xl text-lime-400 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer"
-                                    onClick={() => {
-                                        handleEditClick(item);
-                                    }}
-                                >
-                                    edit
-                                </button>
-                                <button
-                                    className="mb-auto py-2 px-4 text-lg hover:text-xl text-red-400 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer"
-                                    onClick={() => showAlert(item)}
-                                >
-                                    delete
-                                </button>
+                                {isEdit && optionNum === index ? (
+                                    <button
+                                        className="py-2 px-4 text-lg hover:text-xl text-lime-500 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer"
+                                        onClick={handleEditSubmit}
+                                    >
+                                        submit
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="py-2 px-4 text-lg hover:text-xl text-lime-400 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer"
+                                        onClick={() => {
+                                            handleEditClick(item);
+                                        }}
+                                    >
+                                        edit
+                                    </button>
+                                )}
+
+                                {isEdit && optionNum === index ? (
+                                    <button className="py-2 px-4 text-lg hover:text-xl text-red-600 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer">
+                                        cancel
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="py-2 px-4 text-lg hover:text-xl text-red-400 hover:text-white/80 bg-transparent hover:bg-red-600 duration-200 rounded-md cursor-pointer"
+                                        onClick={() => showAlert(item)}
+                                    >
+                                        delete
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>

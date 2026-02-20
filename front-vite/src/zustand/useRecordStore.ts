@@ -18,7 +18,7 @@ export const RECORD_KEYS = ["title", "author", "count", "dates"];
 interface RECORD_STORE {
     records: RECORD_TYPE[];
     addRecord: (record: RECORD_NO_ID_TYPE) => void;
-    modifyRecord: (record: RECORD_TYPE) => void;
+    editRecord: (record: RECORD_TYPE) => void;
     removeRecord: (record: RECORD_TYPE) => void;
 }
 
@@ -27,8 +27,8 @@ export const useRecordStore = create<RECORD_STORE>((set) => ({
     addRecord: (record: RECORD_NO_ID_TYPE) => {
         set((state) => addSetter(state, record));
     },
-    modifyRecord: (record: RECORD_TYPE) => {
-        set((state) => modifySetter(state, record));
+    editRecord: (record: RECORD_TYPE) => {
+        set((state) => editSetter(state, record));
     },
     removeRecord: (record: RECORD_TYPE) => {
         set((state) => removeSetter(state, record));
@@ -40,7 +40,7 @@ function addSetter(state: RECORD_STORE, record: RECORD_NO_ID_TYPE) {
     return { records: [...state.records, { id, ...record }] };
 }
 
-function modifySetter(state: RECORD_STORE, record: RECORD_TYPE) {
+function editSetter(state: RECORD_STORE, record: RECORD_TYPE) {
     return {
         records: [
             ...state.records.map((elem) =>
