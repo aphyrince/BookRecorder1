@@ -26,6 +26,16 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
         [],
     );
 
+    const handleTextareaChange = useCallback(
+        (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            setTempItem((prev) => ({
+                ...prev,
+                comment: e.target.value,
+            }));
+        },
+        [],
+    );
+
     const handleEditClick = useCallback((item: RECORD_TYPE) => {
         setTempItem({ ...item });
         setIsEdit(true);
@@ -95,6 +105,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                 >
                     {isEdit && optionNum === index ? (
                         <input
+                            className="pl-2 mr-8 bg-white/10 text-black/90 duration-200"
                             type="text"
                             name="title"
                             value={tempItem.title}
@@ -105,6 +116,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                     )}
                     {isEdit && optionNum === index ? (
                         <input
+                            className="pl-2 mr-8 bg-white/10 text-black/90 duration-200"
                             type="text"
                             name="author"
                             value={tempItem.author}
@@ -119,7 +131,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                                 size={30}
                                 strokeWidth={3}
                                 onClick={() => handleCount(-1)}
-                                className=" text-black/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl"
+                                className=" text-black/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl cursor-pointer"
                             />
                             <p className="flex justify-center w-4 items-center select-none">
                                 {tempItem.count}
@@ -127,7 +139,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                             <ChevronUp
                                 size={30}
                                 strokeWidth={3}
-                                className=" text-black/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl"
+                                className=" text-black/60 hover:text-white/90 bg-transparent hover:bg-white/10 active:bg-amber-700/50 duration-200 rounded-xl cursor-pointer"
                                 onClick={() => handleCount(1)}
                             />
                         </div>
@@ -166,7 +178,11 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                             <div className="col-span-3 text-white/60">
                                 <p className="text-lime-400/80">comment : </p>
                                 {isEdit && optionNum === index ? (
-                                    <textarea className="w-full mt-2 resize-none" />
+                                    <textarea
+                                        className="pl-2 w-9/10 bg-white/10 text-black/90 duration-200 resize-none"
+                                        value={tempItem.comment}
+                                        onChange={handleTextareaChange}
+                                    />
                                 ) : (
                                     <p>{item.comment}</p>
                                 )}
