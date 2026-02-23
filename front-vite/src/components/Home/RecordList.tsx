@@ -26,6 +26,20 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
         [],
     );
 
+    const handleTempDatesChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const targetIdx = Number(e.target.dataset.index);
+
+            setTempItem((prev) => {
+                const renewDates = prev.dates.map((item, index) =>
+                    index === targetIdx ? new Date(e.target.value) : item,
+                );
+                return { ...prev, dates: renewDates };
+            });
+        },
+        [],
+    );
+
     const handleTextareaChange = useCallback(
         (e: React.ChangeEvent<HTMLTextAreaElement>) => {
             setTempItem((prev) => ({
@@ -56,14 +70,32 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
         [optionNum, isEdit],
     );
 
+    const pushDate = useCallback(() => {
+        setTempItem((prev) => ({
+            ...prev,
+            dates: [...prev.dates, new Date()],
+        }));
+    }, []);
+
+    const popDate = useCallback(() => {
+        const dates = [...tempItem.dates];
+        dates.pop();
+        setTempItem((prev) => ({ ...prev, dates }));
+    }, [tempItem]);
+
     const handleCount = useCallback(
         (addNum: number, item: RECORD_TYPE) => {
             if (tempItem.count + addNum < item.count) {
                 return;
             }
             setTempItem((prev) => ({ ...prev, count: prev.count + addNum }));
+            if (addNum < 0) {
+                popDate();
+            } else {
+                pushDate();
+            }
         },
-        [tempItem],
+        [tempItem, popDate, pushDate],
     );
 
     const handleEditSubmit = useCallback(() => {
@@ -163,12 +195,14 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                     )}
 
                     {isEdit && optionNum === index ? (
-                        <ul>
+                        <ul className="">
                             {tempItem.dates.map((date) => (
                                 <input
                                     type="date"
+                                    name="dates"
+                                    data-index={index}
                                     value={`${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`}
-                                    onChange={handleTempChange}
+                                    onChange={handleTempDatesChange}
                                 />
                             ))}
                         </ul>
@@ -213,7 +247,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
                                         className="py-2 px-4 text-lg hover:text-xl text-lime-500 hover:text-white/80 bg-transparent hover:bg-lime-600 duration-200 rounded-md cursor-pointer"
                                         onClick={handleEditSubmit}
                                     >
-                                        submit
+                                        save
                                     </button>
                                 ) : (
                                     <button
