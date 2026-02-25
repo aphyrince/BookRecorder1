@@ -25,7 +25,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책2",
         "저자2",
         3,
-        [new Date(3123), new Date(223), new Date(12)],
+        [new Date(), new Date(), new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
     createRecordObj(
@@ -33,7 +33,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책3",
         "저자3",
         1,
-        [new Date(3214453543)],
+        [new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
     createRecordObj(
@@ -41,7 +41,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책4",
         "저자4",
         1,
-        [new Date(76865)],
+        [new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
     createRecordObj(
@@ -49,7 +49,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책5",
         "저자4",
         1,
-        [new Date(76865)],
+        [new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
     createRecordObj(
@@ -57,7 +57,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책6",
         "저자4",
         1,
-        [new Date(76865)],
+        [new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
     createRecordObj(
@@ -65,7 +65,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책7",
         "저자4",
         1,
-        [new Date(76865)],
+        [new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
     createRecordObj(
@@ -73,7 +73,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책8",
         "저자4",
         1,
-        [new Date(76865)],
+        [new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
     createRecordObj(
@@ -81,7 +81,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책9",
         "저자4",
         1,
-        [new Date(76865)],
+        [new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
     createRecordObj(
@@ -89,7 +89,7 @@ export const dummyRecords: RECORD_TYPE[] = [
         "책10",
         "저자4",
         1,
-        [new Date(76865)],
+        [new Date()],
         "lorem ipsum....lorem ipsum....lorem ipsum....lorem ipsum....",
     ),
 ];

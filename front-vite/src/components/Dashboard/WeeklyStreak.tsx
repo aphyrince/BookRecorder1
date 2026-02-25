@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getWeeklyData } from "./utils/weeklyCount";
 import { useRecordStore } from "../../zustand/useRecordStore";
 
@@ -20,10 +20,9 @@ export const WeeklyStreak = () => {
     // 데이터 가공 (메모이제이션으로 성능 최적화)
     const weeklyData = useMemo(() => getWeeklyData(dates), [dates]);
 
-    // 최근 12주간의 데이터만 추출 (예시)
-    const last12Weeks = useMemo(() => {
+    const lastNWeeks = useCallback((N: number) => {
         const weeks = [];
-        for (let i = 11; i >= 0; i--) {
+        for (let i = N - 1; i >= 0; i--) {
             const d = new Date();
             d.setDate(d.getDate() - (d.getDay() + i * 7));
             weeks.push(d.toISOString().split("T")[0]);
@@ -41,20 +40,16 @@ export const WeeklyStreak = () => {
     };
 
     return (
-        <div className="flex justify-center items-center gap-2 p-4">
-            {last12Weeks.map((weekStr) => {
+        <div className="grid grid-flow-col grid-rows-4 p-4">
+            {lastNWeeks(48).map((weekStr) => {
                 const count = weeklyData[weekStr] || 0;
                 return (
-                    <div key={weekStr} className="text-center">
-                        <div
-                            title={`${weekStr}: ${count} items`}
-                            className={`size-5 rounded-xs`}
-                            style={{ backgroundColor: getColor(count) }}
-                        />
-                        <span style={{ fontSize: "10px", color: "#666" }}>
-                            {weekStr.split("-")[2]} {/* 일자만 표시 */}
-                        </span>
-                    </div>
+                    <div
+                        key={weekStr}
+                        title={`${weekStr}: ${count} items`}
+                        className={`size-7 rounded-sm`}
+                        style={{ backgroundColor: getColor(count) }}
+                    />
                 );
             })}
         </div>
