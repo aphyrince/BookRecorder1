@@ -40,14 +40,19 @@ export const WeeklyStreak = () => {
     };
 
     return (
-        <div className="grid grid-flow-col grid-rows-4 p-4">
+        <div className="grid grid-flow-col grid-rows-4 gap-1 p-3 ">
             {lastNWeeks(48).map((weekStr) => {
                 const count = weeklyData[weekStr] || 0;
+                const nextWeek = new Date(
+                    new Date(weekStr).getTime() + 604800000,
+                );
+                const nextWeekStr = `${nextWeek.getFullYear()}-${nextWeek.getMonth() + 1}-${nextWeek.getDate()}`;
+
                 return (
                     <div
                         key={weekStr}
-                        title={`${weekStr}: ${count} items`}
-                        className={`size-7 rounded-sm`}
+                        title={`${weekStr}~${nextWeekStr} : ${count} items`}
+                        className={`rounded-sm`}
                         style={{ backgroundColor: getColor(count) }}
                     />
                 );
