@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useRecordStore, type RECORD_TYPE } from "../../zustand/useRecordStore";
 import Swal from "sweetalert2";
 import { Minus, Plus } from "lucide-react";
+import Category from "./RecordList/Category";
 
 const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
     const { removeRecord, editRecord } = useRecordStore();
@@ -133,12 +134,7 @@ const RecordList = ({ list }: { list: RECORD_TYPE[] }) => {
 
     return (
         <ul className="flex flex-col flex-1 w-full p-4 text-white">
-            <li className="grid grid-cols-4 w-full py-4 text-2xl text-lime-500 border-b-4">
-                <p>Title</p>
-                <p>Author</p>
-                <p>Count</p>
-                <p>Dates</p>
-            </li>
+            <Category />
             {list.map((item, index) => (
                 <li
                     className="grid grid-cols-4 w-full py-4 pl-2 border-b-2 border-lime-400 duration-200"
